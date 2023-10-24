@@ -38,6 +38,8 @@ check_and_run() {
     if [[ -f "$FILE_PATH" ]]; then
         # kotlinc -script Users/user/desktop/script.kts "Users/user/desktop/project/$FILE_PATH"
         kotlinc -script {REPLACE_WITH_SCRIPT_PATH} "{PROVIDE_FULL_PATH}$FILE_PATH"
+        # Remove old build.gradle file
+        rm {PROVIDE_FULL_PATH}$FILE_PATH
     fi
 }
 
