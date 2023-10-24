@@ -165,6 +165,31 @@ When applying on `build.gradle`, the script will create, for example, `build.gra
 When applying on a file that already ends in `.kts`, the script will overrite the file.
 In that case, please make sure you are using git or have a backup, in case things turn out wrong.
 
+# Script to convert all build.gradle into build.gradle.kts with single bash script
+
+```bash
+#!/bin/bash
+
+# Root directory to start from
+ROOT_DIR="Space-Features"
+
+# Function to check for the "run" file and execute it if found
+check_and_run() {
+    FILE_PATH="$1/build.gradle"
+    echo $FILE_PATH
+    if [[ -f "$FILE_PATH" ]]; then
+        # kotlinc -script Users/user/desktop/script.kts "Users/user/desktop/project/$FILE_PATH"
+        kotlinc -script {REPLACE_WITH_SCRIPT_PATH} "{PROVIDE_FULL_PATH}$FILE_PATH"
+    fi
+}
+
+# Navigate through each feature directory and then through Api and Impl
+for FEATURE_DIR in "$ROOT_DIR"/*/; do
+    check_and_run "$FEATURE_DIR/Api"
+    check_and_run "$FEATURE_DIR/Impl"
+done
+```
+
 😨 Things it still can't do
 -------
 - If you find anything, just tell me.
